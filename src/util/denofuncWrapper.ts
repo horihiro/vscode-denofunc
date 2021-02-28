@@ -1,7 +1,6 @@
 'use strict';
 
 import * as child_process from 'child_process';
-import * as util from 'util';
 import { channel } from '../util/outputChannel';
 import { platform } from 'os';
 
