@@ -17,6 +17,18 @@
 	],
 	"main": "./out/extension.js",
 	"contributes": {
+    "configuration":[
+      {
+        "title": "DenoFunc",
+        "properties": {
+          "denofunc.path": {
+            "type": "string",
+            "description": "Path to `denofunc` command (default: `denofunc` )",
+            "default": "denofunc"
+          }
+        }
+      }
+    ],
 		"commands": [
 			{
 				"command": "DenoFunc.initProject",
