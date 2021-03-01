@@ -14,7 +14,11 @@ const selectFunctionApp = async () => {
       location: ProgressLocation.Notification,
       title: 'DenoFunc - Getting Function Apps...',
       cancellable: false
-    }, async () => await execAzFuncAppList(undefined, channel));
+    }, async () => {
+      channel.show();
+      channel.appendLine('Getting Function Apps...');
+      return await execAzFuncAppList(undefined, channel)
+    });
     return await window.showQuickPick(functionapps, { placeHolder: 'Select function app you want to deploy to.' });
   } catch (e) {
     await window.showErrorMessage(e.stderr);
@@ -28,7 +32,11 @@ const selectFunctionAppSlot = async (appName: string) => {
       location: ProgressLocation.Notification,
       title: `DenoFunc - Getting slots of Function App \`${appName}\`...`,
       cancellable: false
-    }, async () => await execAzFuncAppSlotList(appName, undefined, channel));
+    }, async () => {
+      channel.show();
+      channel.appendLine(`Getting slots of Function App \`${appName}\`...`);
+      return await execAzFuncAppSlotList(appName, undefined, channel)
+    });
     if (functionappslots.length > 0) return await window.showQuickPick(functionappslots, { placeHolder: `Select slot of function app \`${appName}\` you want to deploy to.` });
     const result = await window.showInformationMessage(`There is no deployment slots in ${appName}.\nDo you want to deploy to Production slot?`, 'Yes', 'No');
     return result?.toLocaleLowerCase() === 'yes' ? PRODUCTION_SLOT : '';
@@ -55,10 +63,11 @@ export async function deploy() {
     title: `DenoFunc - Deploying to \`${appName}\`...`,
     cancellable: false
   }, async () => {
-    const { stdout } = await execDeploy(appName, {
+    channel.show();
+    channel.appendLine(`Getting slots of Function App \`${appName}\`...`);
+    return await execDeploy(appName, {
       cwd: f.description
     }, channel);
-    return Promise.resolve(stdout);
   });
 
   await window.showInformationMessage('Deployment is succeeded.');

@@ -22,10 +22,11 @@ export async function initProject() {
     title: 'DenoFunc - Initializing...',
     cancellable: false
   }, async () => {
-    const { stdout } = await execInitProject({
+    channel.show();
+    channel.appendLine('Initializing...');
+    return await execInitProject({
       cwd: f.description
     }, channel);
-    return Promise.resolve(stdout);
   });
   await window.showInformationMessage(`Initialize Project: The directory \`${f.label}\` was initialized.`);
 }
