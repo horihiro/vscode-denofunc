@@ -4,6 +4,10 @@
 	"description": "VSCode extension as denofunc wrapper",
 	"version": "0.0.1",
   "publisher": "horihiro",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/horihiro/vscode-denofunc"
+	},
   "icon": "resources/denofunc.png",
 	"engines": {
 		"vscode": "^1.53.0"
