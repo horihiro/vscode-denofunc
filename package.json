@@ -3,11 +3,22 @@
 	"displayName": "vscode-denofunc",
 	"description": "VSCode extension as denofunc wrapper",
 	"version": "0.0.1",
+  "publisher": "horihiro",
+  "icon": "resources/denofunc.png",
 	"engines": {
 		"vscode": "^1.53.0"
 	},
 	"categories": [
 		"Azure", "Other"
+	],
+	"homepage": "https://github.com/horihiro/vscode-denofunc/blob/main/README.md",
+	"license": "SEE LICENSE IN LICENSE",
+	"keywords": [
+		"Azure",
+		"Functions",
+		"serverless",
+		"deno",
+    "denofunc"
 	],
 	"activationEvents": [
 		"onCommand:DenoFunc.createFunction",
