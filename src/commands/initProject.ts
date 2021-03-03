@@ -5,17 +5,21 @@ import { channel } from '../utils/outputChannel';
 import { getTargetFolder } from '../utils/getTargetFolder';
 import { execInitProject } from '../utils/denofuncWrapper';
 
-export async function initProject() {
+export async function initProject(folder?: string) {
   // The code you place here will be executed every time your command is executed
 
-  if (!workspace.workspaceFolders) {
-    const message = 'DenoFunc: Working folder not found, open a folder and try again';
-    await window.showErrorMessage(message);
-    return;
-  }
+  let targetFolder = folder;
+  if (!targetFolder) {
+    if (!workspace.workspaceFolders) {
+      const message = 'DenoFunc: Working folder not found, open a folder and try again';
+      window.showErrorMessage(message);
+      return;
+    }
 
-  const f = await getTargetFolder({ placeHolder: 'Select folder you want to initialize.' });
-  if (!f) return;
+    const f = await getTargetFolder({ placeHolder: 'Select folder you want to initialize.' });
+    if (!f) return;
+    targetFolder = f.description + f.label;
+  }
 
   await window.withProgress({
     location: ProgressLocation.Notification,
@@ -25,8 +29,8 @@ export async function initProject() {
     channel.show();
     channel.appendLine('Initializing...');
     return await execInitProject({
-      cwd: f.description
+      cwd: targetFolder
     }, channel);
   });
-  await window.showInformationMessage(`Initialize Project: The directory \`${f.label}\` was initialized.`);
+  window.showInformationMessage(`Initialize Project: The directory \`${targetFolder}\` was initialized.`);
 }

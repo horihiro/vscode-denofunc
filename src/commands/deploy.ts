@@ -21,7 +21,7 @@ const selectFunctionApp = async () => {
     });
     return await window.showQuickPick(functionapps, { placeHolder: 'Select function app you want to deploy to.' });
   } catch (e) {
-    await window.showErrorMessage(e.stderr);
+    window.showErrorMessage(e.stderr);
     return '';
   }
 };
@@ -41,7 +41,7 @@ const selectFunctionAppSlot = async (appName: string) => {
     const result = await window.showInformationMessage(`There is no deployment slots in ${appName}.\nDo you want to deploy to Production slot?`, 'Yes', 'No');
     return result?.toLocaleLowerCase() === 'yes' ? PRODUCTION_SLOT : '';
   } catch (e) {
-    await window.showErrorMessage(e.stderr);
+    window.showErrorMessage(e.stderr);
     return '';
   }
 };
@@ -49,7 +49,7 @@ const selectFunctionAppSlot = async (appName: string) => {
 export async function deploy() {
   if (!workspace.workspaceFolders) {
     const message = 'DenoFunc: Working folder not found, open a folder and try again';
-    await window.showErrorMessage(message);
+    window.showErrorMessage(message);
     return;
   }
   const f = await getTargetFolder({ placeHolder: 'Select folder you want to initialize.' });
@@ -70,13 +70,13 @@ export async function deploy() {
     }, channel);
   });
 
-  await window.showInformationMessage('Deployment is succeeded.');
+  window.showInformationMessage('Deployment is succeeded.');
 }
 
 export async function deploySlot() {
   if (!workspace.workspaceFolders) {
     const message = 'DenoFunc: Working folder not found, open a folder and try again';
-    await window.showErrorMessage(message);
+    window.showErrorMessage(message);
     return;
   }
   const f = await getTargetFolder({ placeHolder: 'Select folder you want to initialize.' });
