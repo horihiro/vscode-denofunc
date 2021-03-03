@@ -22,7 +22,7 @@ export async function createFunction() {
 
   // create function file under ./functions 
   const functionName = await window.showInputBox({
-    validateInput: async (newFuncName:string) => {
+    validateInput: async (newFuncName: string) => {
       if (!newFuncName) return;
       try {
         const stat = await fsPromises.stat(`${f.description}/functions/${newFuncName}.ts`);
@@ -32,7 +32,7 @@ export async function createFunction() {
   });
   if (!functionName) return;
 
-  await fsPromises.writeFile(`${f.description}/functions/${functionName}.ts`, selectedTemplate.template, {encoding: 'UTF-8'});
+  await fsPromises.writeFile(`${f.description}/functions/${functionName}.ts`, selectedTemplate.template, { encoding: 'UTF-8' });
   const message = `${selectedTemplate.label} Function \`${functionName}\` is created.`;
   channel.appendLine(message);
   await window.showInformationMessage(message);
