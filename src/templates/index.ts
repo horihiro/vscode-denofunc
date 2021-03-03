@@ -6,16 +6,16 @@ export const functionTemplates = [{
 
 async function handler(context: AzureFunctionsContext) {
   const myBlob = context.bindings.myBlob;
-  context.log(\`Blob trigger function processed blob 
-  Name: $\{context.bindingData.name}, 
-  Blob Size: $\{myBlob.length} Bytes\`);
+  context.log(\\\`Blob trigger function processed blob 
+  Name: $\\{context.bindingData.name}, 
+  Blob Size: $\\{myBlob.length} Bytes\\\`);
 }
 
 export default {
   handler,
 
   // Name of the function
-  name: "blob_trigger",
+  name: "$\{functionName}",
 
   metadata: {
     "bindings": [
@@ -37,7 +37,7 @@ export default {
 async function handler(context: AzureFunctionsContext) {
   const documents = context.bindings.documents;
   if (!!documents && documents.length > 0) {
-    context.log(\`Document Id: $\{documents[0].id}\`);
+    context.log(\\\`Document Id: $\\{documents[0].id}\\\`);
   }
 }
 
@@ -45,7 +45,7 @@ export default {
   handler,
 
   // Name of the function
-  name: "cosmosdb_trigger",
+  name: "$\{functionName}",
 
   metadata: {
     "bindings": [
@@ -77,7 +77,7 @@ export default {
   handler,
 
   // Name of the function
-  name: "eventgrid_trigger",
+  name: "$\{functionName}",
 
   metadata: {
     "bindings": [
@@ -97,11 +97,11 @@ export default {
 async function handler(context: AzureFunctionsContext) {
   const eventHubMessages = context.bindings.eventHubMessages;
   context.log(
-    \`Eventhub trigger function called for message array $\{eventHubMessages}\`,
+    \\\`Eventhub trigger function called for message array $\\{eventHubMessages}\\\`,
   );
 
   eventHubMessages.forEach((message: any) => {
-    context.log(\`Processed message $\{message}\`);
+    context.log(\\\`Processed message $\\{message}\\\`);
   });
 }
 
@@ -109,7 +109,7 @@ export default {
   handler,
 
   // Name of the function
-  name: "eventhub_iothub_trigger",
+  name: "$\{functionName}",
 
   metadata: {
     "bindings": [
@@ -133,7 +133,7 @@ export default {
 async function handler(context: AzureFunctionsContext) {
   context.res = {
     status: 200,
-    body: \`Welcome to deno $\{Deno.version.deno} 🦕 in Azure Functions ⚡️!!!\`
+    body: \\\`Welcome to deno $\\{Deno.version.deno} 🦕 in Azure Functions ⚡️!!!\\\`
   };
 }
 
@@ -141,9 +141,9 @@ export default {
   handler,
 
   // Name of the function
-  name: "hello_world",
+  name: "$\{functionName}",
 
-  // By default, it's an HTTP function. For other functions, add a \`metadata\` property 
+  // By default, it's an HTTP function. For other functions, add a \\\`metadata\\\` property 
   // with the contents of function.json that describes the trigger and bindings.
   // https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-example
 };
@@ -152,14 +152,14 @@ export default {
   template: `import type { AzureFunctionsContext } from "../deps.ts";
 
 async function handler(context: AzureFunctionsContext) {
-  context.log(\`Queue item received: $\{context.bindings.myQueueItem}\`);
+  context.log(\\\`Queue item received: $\\{context.bindings.myQueueItem}\\\`);
 }
 
 export default {
   handler,
 
   // Name of the function
-  name: "queue_trigger",
+  name: "$\{functionName}",
 
   metadata: {
     "bindings": [
@@ -180,14 +180,14 @@ export default {
 
 async function handler(context: AzureFunctionsContext) {
   const mySbMsg = context.bindings.mySbMsg;
-  context.log(\`ServiceBus queue trigger function processed message $\{mySbMsg}\`);
+  context.log(\\\`ServiceBus queue trigger function processed message $\\{mySbMsg}\\\`);
 };
 
 export default {
   handler,
 
   // Name of the function
-  name: "servicebus_queue_trigger",
+  name: "$\{functionName}",
 
   metadata: {
     "bindings": [
@@ -208,14 +208,14 @@ export default {
 
 async function handler(context: AzureFunctionsContext) {
   const mySbMsg = context.bindings.mySbMsg;
-  context.log(\`ServiceBus topic trigger function processed message $\{mySbMsg}\`);
+  context.log(\\\`ServiceBus topic trigger function processed message $\\{mySbMsg}\\\`);
 }
 
 export default {
   handler,
 
   // Name of the function
-  name: "servicebus_topic_trigger",
+  name: "$\{functionName}",
 
   metadata: {
     "bindings": [
@@ -242,14 +242,14 @@ async function handler(context: AzureFunctionsContext) {
   if (myTimer.isPastDue) {
     context.log("Timer function is running late!");
   }
-  context.log(\`Timer trigger function ran! $\{timeStamp}\`);
+  context.log(\\\`Timer trigger function ran! $\\{timeStamp}\\\`);
 }
 
 export default {
   handler,
 
   // Name of the function
-  name: "timer_trigger",
+  name: "$\{functionName}",
 
   metadata: {
     "bindings": [
