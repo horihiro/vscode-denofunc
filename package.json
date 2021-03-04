@@ -89,6 +89,7 @@
 		"vscode-test": "^1.5.0"
 	},
   "extensionDependencies": [
-    "ms-azuretools.vscode-azurefunctions"
+    "ms-azuretools.vscode-azurefunctions",
+    "denoland.vscode-deno"
   ]
 }
