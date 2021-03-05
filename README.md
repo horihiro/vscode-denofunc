@@ -1,13 +1,13 @@
 # `denofunc` extension for Visual Studio Code
 
-This is VS code extension for using [`denofunc`](https://github.com/anthonychu/azure-functions-deno-worker) in VS code.
+This is VS code extension for using [`denofunc`](https://github.com/anthonychu/azure-functions-deno-worker).
 
 ## Features
 This extension adds the following commands to VS code.
 
-  - Initialize your folder as `denofunc` project, equivalent to `denofunc init`
+  - Initialize your folder as `denofunc` project, equivalent to typing `denofunc init` in a terminal
   - Create functions to your project based on [templates](https://github.com/horihiro/vscode-denofunc/blob/main/src/templates/index.ts) included in this extension
-  - Deploy your project to Azure Functions, equivalent to `denofunc publish`
+  - Deploy your project to Azure Functions, equivalent to typing `denofunc publish` in a terminal
 
 ![commands](./resources/commands.png)
 
@@ -24,7 +24,9 @@ This extension adds the following commands to VS code.
 
 ## Known Issues
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+  - Deploying to deployment slot is not impletemented ([issue #1](https://github.com/horihiro/vscode-denofunc/issues/1)).
+
+Please check [known issues](https://github.com/horihiro/vscode-denofunc/issues) before opening new one.
 
 ## Release Notes
 
