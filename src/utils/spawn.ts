@@ -2,12 +2,10 @@
 
 import { OutputChannel } from 'vscode';
 import { spawn, ExecOptions } from 'child_process';
-import { platform } from 'os';
 
-const isWindows = platform() === 'win32';
 export const spawnAsync = (cmd: string, options?: ExecOptions, channel?: OutputChannel): Promise<any> => {
   return new Promise((resolve, reject) => {
-    const p = spawn(cmd, isWindows ? Object.assign(options || {}, { shell: true }) : options);
+    const p = spawn(cmd, Object.assign(options || {}, { shell: true }));
     let stdoutData = '';
     let stderrData = '';
     p.on('exit', (code: number) => {
