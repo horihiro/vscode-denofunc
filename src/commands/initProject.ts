@@ -41,5 +41,4 @@ export async function initProject(folder?: string) {
     else workspaceJson.settings = {'deno.enable': true};
     await fsPromises.writeFile(workspace.workspaceFile.fsPath, JSON.stringify(workspaceJson, null, 2), {encoding: 'utf-8'})
   }
-  if (!!(await window.showWarningMessage('Reload this project to enable Deno extesion?', { modal: true }, 'Yes'))) commands.executeCommand('workbench.action.reloadWindow');
 }
