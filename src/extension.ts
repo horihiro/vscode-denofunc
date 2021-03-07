@@ -2,20 +2,34 @@
 
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
-import * as vscode from 'vscode';
+import { commands, ExtensionContext, workspace, window} from 'vscode';
+import { platform } from 'os';
 
 // Commands
 import { initProject } from './commands/initProject';
 import { deploy, deploySlot } from './commands/deploy';
 import { createFunction } from './commands/createFunction';
 
-// this method is called when your extension is activated
-// your extension is activated the very first time the command is executed
-export async function activate(context: vscode.ExtensionContext) {
-  context.subscriptions.push(vscode.commands.registerCommand('DenoFunc.createFunction', createFunction));
-  context.subscriptions.push(vscode.commands.registerCommand('DenoFunc.initProject', initProject));
-  context.subscriptions.push(vscode.commands.registerCommand('DenoFunc.deploy', deploy));
-  context.subscriptions.push(vscode.commands.registerCommand('DenoFunc.deploySlot', deploySlot));
+// Utils
+import { spawnAsync } from './utils/spawn';
+
+const whereOrWhich = platform() === 'win32' ? 'where' : 'which';
+
+export async function activate(context:ExtensionContext) {
+  let command = workspace.getConfiguration('denofunc')?.path || 'denofunc';
+  try {
+    await spawnAsync(`${whereOrWhich} ${command}`);
+    command = 'az';
+    await spawnAsync(`${whereOrWhich} ${command}`);
+  } catch {
+    window.showErrorMessage(`DenoFunc: Cannot find command \`${command}\`.`, );
+    return;
+  }
+
+  context.subscriptions.push(commands.registerCommand('DenoFunc.createFunction', createFunction));
+  context.subscriptions.push(commands.registerCommand('DenoFunc.initProject', initProject));
+  context.subscriptions.push(commands.registerCommand('DenoFunc.deploy', deploy));
+  // context.subscriptions.push(commands.registerCommand('DenoFunc.deploySlot', deploySlot));
 }
 
 // this method is called when your extension is deactivated

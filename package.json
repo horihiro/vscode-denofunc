@@ -25,10 +25,7 @@
     "denofunc"
 	],
 	"activationEvents": [
-		"onCommand:DenoFunc.createFunction",
-		"onCommand:DenoFunc.deploy",
-		"onCommand:DenoFunc.deploySlot",
-		"onCommand:DenoFunc.initProject"
+		"*"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
