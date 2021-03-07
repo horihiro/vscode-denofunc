@@ -9,7 +9,7 @@ This extension adds the following commands to VS code.
   - Create functions to your project based on [templates](https://github.com/horihiro/vscode-denofunc/blob/main/src/templates/index.ts) included in this extension
   - Deploy your project to Azure Functions, equivalent to typing `denofunc publish` in a terminal
 
-![commands](./resources/commands.png)
+![commands](resources/commands.png)
 
 ## Requirements
 
