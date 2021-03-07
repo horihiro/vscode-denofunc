@@ -32,6 +32,10 @@ Please check [known issues](https://github.com/horihiro/vscode-denofunc/issues) 
 
 Users appreciate release notes as you update your extension.
 
+### 0.0.2
+
+Fix README and env for development.
+
 ### 0.0.1
 
 Alpha release.
