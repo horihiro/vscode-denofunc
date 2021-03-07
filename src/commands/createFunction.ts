@@ -1,6 +1,6 @@
 'use strict';
 
-import { window, workspace } from 'vscode';
+import { window, workspace, commands, Uri } from 'vscode';
 import { channel } from '../utils/outputChannel';
 import { getTargetFolder } from '../utils/getTargetFolder';
 import { functionTemplates } from '../templates';
@@ -39,6 +39,9 @@ export async function createFunction() {
 
   const functionContent = Function(`"use strict";const functionName = '${functionName}'; return \`` + selectedTemplate.template + '`;')();
   await fsPromises.writeFile(`${f.description}${f.label}/functions/${functionName}.ts`, functionContent, { encoding: 'UTF-8' });
+
+  const uri = Uri.file(`${f.description}${f.label}/functions/${functionName}.ts`);
+  commands.executeCommand('vscode.open', uri);
 
   const message = `${selectedTemplate.label} Function \`${functionName}\` is created.`;
   channel.appendLine(message);
