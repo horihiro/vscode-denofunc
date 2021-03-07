@@ -22,7 +22,7 @@ export const spawnAsync = (cmd: string, options?: ExecOptions, channel?: OutputC
       stdoutData += d;
     });
     p.stderr.on('data', (data) => {
-      const d = data.toString()
+      const d = data.toString().replace(/\x1b\[\d+m/g, ''); // remove ANSI color code
       channel && channel.append(d);
       stderrData += d;
     });
