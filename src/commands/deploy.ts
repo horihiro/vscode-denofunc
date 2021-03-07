@@ -66,7 +66,7 @@ export async function deploy() {
     channel.show();
     channel.appendLine(`Getting slots of Function App \`${appName}\`...`);
     return await execDeploy(appName, {
-      cwd: f.description
+      cwd: f.description + f.label
     }, channel);
   });
 
