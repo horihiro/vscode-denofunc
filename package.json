@@ -1,6 +1,6 @@
 {
 	"name": "vscode-denofunc",
-	"displayName": "vscode-denofunc",
+	"displayName": "denofunc extension",
 	"description": "VSCode extension as denofunc wrapper",
 	"version": "0.0.2",
 	"publisher": "horihiro",
@@ -62,7 +62,7 @@
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
-		"vscode:package": "vsce package --githubBranch main",
+		"vscode:package": "vsce package --githubBranch main --noGitHubIssueLinking",
 		"compile": "tsc -p ./",
 		"watch": "tsc -watch -p ./",
 		"pretest": "npm run compile && npm run lint",
