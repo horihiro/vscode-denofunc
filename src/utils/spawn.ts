@@ -5,7 +5,7 @@ import { spawn, ExecOptions } from 'child_process';
 
 export const spawnAsync = (cmd: string, options?: ExecOptions, channel?: OutputChannel): Promise<any> => {
   return new Promise((resolve, reject) => {
-    const p = spawn(cmd, Object.assign(options || {}, { shell: true }));
+    const p = spawn(cmd, Object.assign(options || {}, { shell: true, env: {NO_COLOR: true} }));
     let stdoutData = '';
     let stderrData = '';
     p.on('exit', (code: number) => {
@@ -22,7 +22,7 @@ export const spawnAsync = (cmd: string, options?: ExecOptions, channel?: OutputC
       stdoutData += d;
     });
     p.stderr.on('data', (data) => {
-      const d = data.toString().replace(/\x1b\[\d+m/g, ''); // remove ANSI color code
+      const d = data.toString()
       channel && channel.append(d);
       stderrData += d;
     });
