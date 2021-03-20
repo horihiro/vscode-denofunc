@@ -2,7 +2,7 @@
 
 import { window, ProgressLocation, workspace } from 'vscode';
 import { channel } from '../utils/outputChannel';
-import { getTargetFolder } from '../utils/getTargetFolder';
+import { pickTargetFolder } from '../utils/picker';
 import { execDeploy, execDeploySlot } from '../utils/denofuncWrapper';
 import { execAzFuncAppList, execAzFuncAppSlotList } from '../utils/azWrapper';
 
@@ -52,7 +52,7 @@ export async function deploy() {
     window.showErrorMessage(message);
     return;
   }
-  const f = await getTargetFolder({ placeHolder: 'Select folder you want to initialize.' });
+  const f = await pickTargetFolder({ placeHolder: 'Select folder you want to initialize.' });
   if (!f) return;
 
   const appName = await selectFunctionApp();
@@ -79,7 +79,7 @@ export async function deploySlot() {
     window.showErrorMessage(message);
     return;
   }
-  const f = await getTargetFolder({ placeHolder: 'Select folder you want to initialize.' });
+  const f = await pickTargetFolder({ placeHolder: 'Select folder you want to initialize.' });
   if (!f) return;
 
   const appName = await selectFunctionApp();

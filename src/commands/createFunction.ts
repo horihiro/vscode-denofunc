@@ -2,8 +2,8 @@
 
 import { window, workspace, commands, Uri } from 'vscode';
 import { channel } from '../utils/outputChannel';
-import { getTargetFolder } from '../utils/getTargetFolder';
-import { functionTemplates } from '../templates';
+import { pickTargetFolder } from '../utils/picker';
+import { functionTemplates } from '../templates/functions';
 import { promises as fsPromises } from 'fs';
 import { initProject } from './initProject';
 
@@ -13,7 +13,7 @@ export async function createFunction() {
     window.showErrorMessage(message);
     return;
   }
-  const f = await getTargetFolder({ placeHolder: 'Select folder you want to add a function.' });
+  const f = await pickTargetFolder({ placeHolder: 'Select folder you want to add a function.' });
   if (!f) return;
 
   try {

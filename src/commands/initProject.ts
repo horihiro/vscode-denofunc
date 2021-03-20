@@ -2,7 +2,7 @@
 
 import { window, workspace, ProgressLocation, commands } from 'vscode';
 import { channel } from '../utils/outputChannel';
-import { getTargetFolder } from '../utils/getTargetFolder';
+import { pickTargetFolder } from '../utils/picker';
 import { execInitProject } from '../utils/denofuncWrapper';
 import { promises as fsPromises } from 'fs';
 
@@ -17,7 +17,7 @@ export async function initProject(folder?: string) {
       return;
     }
 
-    const f = await getTargetFolder({ placeHolder: 'Select folder you want to initialize.' });
+    const f = await pickTargetFolder({ placeHolder: 'Select folder you want to initialize.' });
     if (!f) return;
     targetFolder = f.description + f.label;
   }
