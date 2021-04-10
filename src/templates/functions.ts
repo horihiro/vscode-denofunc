@@ -19,8 +19,9 @@ export default {
 
   metadata: {
     bindings: [
+      // This is a tempalte for \\\`Blob Trigger\\\` function, so this needs to be edited. 
+      // More info: https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-storage-blob-trigger?tabs=javascript#configuration
       {
-        // https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-storage-blob-trigger?tabs=javascript#configuration
         name: 'myBlob',
         type: 'blobTrigger',
         direction: 'in',
@@ -49,8 +50,9 @@ export default {
 
   metadata: {
     bindings: [
+      // This is a tempalte for \\\`CosmosDB Trigger\\\` function, so this needs to be edited. 
+      // More info: https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-cosmosdb-v2-trigger?tabs=javascript#configuration
       {
-        // https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-cosmosdb-v2-trigger?tabs=javascript#configuration
         type: 'cosmosDBTrigger',
         name: 'documents',
         direction: 'in',
@@ -81,8 +83,9 @@ export default {
 
   metadata: {
     bindings: [
+      // This is a tempalte for \\\`EventGrid Trigger\\\` function, so this needs to be edited. 
+      // More info: https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-event-grid-trigger?tabs=javascript#configuration
       {
-        // https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-event-grid-trigger?tabs=javascript#configuration
         type: 'eventGridTrigger',
         name: 'eventGridEvent',
         direction: 'in',
@@ -113,8 +116,9 @@ export default {
 
   metadata: {
     bindings: [
+      // This is a tempalte for \\\`EventHubs/IoT Hub Trigger\\\` function, so this needs to be edited. 
+      // More info: https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-event-hubs-trigger?tabs=javascript#configuration
       {
-        // https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-event-hubs-trigger?tabs=javascript#configuration
         type: 'eventHubTrigger',
         name: 'eventHubMessages',
         direction: 'in',
@@ -145,7 +149,7 @@ export default {
 
   // By default, it's an HTTP function. For other functions, add a \\\`metadata\\\` property 
   // with the contents of function.json that describes the trigger and bindings.
-  // https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-example
+  // More info: https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-example
 };
 `}, {
   label: 'Queue Trigger',
@@ -163,8 +167,9 @@ export default {
 
   metadata: {
     bindings: [
+      // This is a tempalte for \\\`Queue Trigger\\\` function, so this needs to be edited. 
+      // More info: https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-storage-queue-trigger?tabs=javascript#configuration
       {
-        // https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-storage-queue-trigger?tabs=javascript#configuration
         type: 'queueTrigger',
         direction: 'in',
         name: 'myQueueItem',
@@ -191,8 +196,9 @@ export default {
 
   metadata: {
     bindings: [
+      // This is a tempalte for \\\`ServiceBus Queue Trigger\\\` function, so this needs to be edited. 
+      // More info: https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-service-bus-trigger?tabs=javascript#configuration
       {
-        // https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-service-bus-trigger?tabs=javascript#configuration
         name: 'mySbMsg',
         type: 'serviceBusTrigger',
         direction: 'in',
@@ -219,8 +225,9 @@ export default {
 
   metadata: {
     bindings: [
+      // This is a tempalte for \\\`ServiceBus Topic Trigger\\\` function, so this needs to be edited. 
+      // More info: https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-service-bus-trigger?tabs=javascript#configuration
       {
-        // https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-service-bus-trigger?tabs=javascript#configuration
         name: 'mySbMsg',
         type: 'serviceBusTrigger',
         direction: 'in',
@@ -253,8 +260,9 @@ export default {
 
   metadata: {
     bindings: [
+      // This is a tempalte for \\\`Timer Trigger\\\` function, so this needs to be edited. 
+      // More info: https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-timer?tabs=javascript#configuration
       {
-        // https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-timer?tabs=javascript#configuration
         name: 'myTimer',
         type: 'timerTrigger',
         direction: 'in',
