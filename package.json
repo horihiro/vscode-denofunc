@@ -62,6 +62,11 @@
 				"command": "DenoFunc.deploySlot",
 				"title": "%DenoFunc.deploySlot%",
 				"category": "DenoFunc"
+			},
+			{
+				"command": "DenoFunc.addBinding",
+				"title": "%DenoFunc.addBinding%",
+				"category": "DenoFunc"
 			}
 		]
 	},

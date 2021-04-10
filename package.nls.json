@@ -2,5 +2,6 @@
     "DenoFunc.createFunction": "Create Function...",
     "DenoFunc.deploy": "Deploy to Function App...",
     "DenoFunc.deploySlot": "Deploy to Slot...",
-    "DenoFunc.initProject": "Initialize Project..."
+    "DenoFunc.initProject": "Initialize Project...",
+    "DenoFunc.addBinding": "Add binding..."
 }

@@ -9,6 +9,7 @@ import { platform } from 'os';
 import { initProject } from './commands/initProject';
 import { deploy, deploySlot } from './commands/deploy';
 import { createFunction } from './commands/createFunction';
+import { addBinding } from './commands/addBinding';
 
 // Utils
 import { spawnAsync } from './utils/spawn';
@@ -29,7 +30,8 @@ export async function activate(context:ExtensionContext) {
   context.subscriptions.push(commands.registerCommand('DenoFunc.createFunction', createFunction));
   context.subscriptions.push(commands.registerCommand('DenoFunc.initProject', initProject));
   context.subscriptions.push(commands.registerCommand('DenoFunc.deploy', deploy));
-  // context.subscriptions.push(commands.registerCommand('DenoFunc.deploySlot', deploySlot));
+  context.subscriptions.push(commands.registerCommand('DenoFunc.deploySlot', deploySlot));
+  context.subscriptions.push(commands.registerCommand('DenoFunc.addBinding', addBinding));
 }
 
 // this method is called when your extension is deactivated
