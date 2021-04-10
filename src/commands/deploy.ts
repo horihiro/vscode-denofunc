@@ -12,9 +12,10 @@ const selectFunctionApp = async () => {
   try {
     const functionapps = await window.withProgress({
       location: ProgressLocation.Notification,
-      title: 'DenoFunc - Getting Function Apps...',
+      title: 'DenoFunc',
       cancellable: false
-    }, async () => {
+    }, async (progress) => {
+      progress.report({ message: ` Getting Function Apps...`});
       channel.show();
       channel.appendLine('Getting Function Apps...');
       return await execAzFuncAppList(undefined, channel)
@@ -30,9 +31,10 @@ const selectFunctionAppSlot = async (appName: string) => {
   try {
     const functionappslots = await window.withProgress({
       location: ProgressLocation.Notification,
-      title: `DenoFunc - Getting slots of Function App \`${appName}\`...`,
+      title: `DenoFunc`,
       cancellable: false
-    }, async () => {
+    }, async (progress) => {
+      progress.report({ message: ` Getting slots of Function App \`${appName}\`...`});
       channel.show();
       channel.appendLine(`Getting slots of Function App \`${appName}\`...`);
       return await execAzFuncAppSlotList(appName, undefined, channel)
@@ -60,11 +62,12 @@ export async function deploy() {
 
   await window.withProgress({
     location: ProgressLocation.Notification,
-    title: `DenoFunc - Deploying to \`${appName}\`...`,
+    title: `DenoFunc`,
     cancellable: false
-  }, async () => {
+  }, async (progress) => {
+    progress.report({ message: ` Deploying to \`${appName}\`...`});
     channel.show();
-    channel.appendLine(`Getting slots of Function App \`${appName}\`...`);
+    channel.appendLine(`Deploying to \`${appName}\`...`);
     return await execDeploy(appName, {
       cwd: f.description + f.label
     }, channel);
@@ -92,18 +95,18 @@ export async function deploySlot() {
 
   // await window.withProgress({
   //   location: ProgressLocation.Notification,
-  //   title: `DenoFunc - Deploying to slot \`${slotName}\` of \`${appName}\`...`,
+  //   title: `DenoFunc`,
   //   cancellable: false
-  // }, async () => {
+  // }, async (progress) => {
+  //   progress.report({ message: ` Deploying to slot \`${slotName}\` of \`${appName}\`...`});
   //   const { stdout } = await (slotName !== PRODUCTION_SLOT
   //     ? execDeploySlot(appName, slotName, {
-  //       cwd: f.description
+  //       cwd: f.description + f.label
   //     }, channel)
   //     : execDeploy(appName, {
-  //       cwd: f.description
+  //       cwd: f.description + f.label
   //     }, channel));
 
   //   return Promise.resolve(stdout);
   // });
-
 }
