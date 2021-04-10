@@ -57,6 +57,11 @@
 				"command": "DenoFunc.deploy",
 				"title": "%DenoFunc.deploy%",
 				"category": "DenoFunc"
+			},
+			{
+				"command": "DenoFunc.deploySlot",
+				"title": "%DenoFunc.deploySlot%",
+				"category": "DenoFunc"
 			}
 		]
 	},

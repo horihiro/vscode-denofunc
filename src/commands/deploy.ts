@@ -91,22 +91,20 @@ export async function deploySlot() {
   const slotName = await selectFunctionAppSlot(appName);
   if (!slotName) return;
 
-  window.showErrorMessage('Deploy to Slot: Not implemented.');
+  await window.withProgress({
+    location: ProgressLocation.Notification,
+    title: `DenoFunc`,
+    cancellable: false
+  }, async (progress) => {
+    progress.report({ message: ` Deploying to slot \`${slotName}\` of \`${appName}\`...`});
+    const { stdout } = await (slotName !== PRODUCTION_SLOT
+      ? execDeploySlot(appName, slotName, {
+        cwd: f.description + f.label
+      }, channel)
+      : execDeploy(appName, {
+        cwd: f.description + f.label
+      }, channel));
 
-  // await window.withProgress({
-  //   location: ProgressLocation.Notification,
-  //   title: `DenoFunc`,
-  //   cancellable: false
-  // }, async (progress) => {
-  //   progress.report({ message: ` Deploying to slot \`${slotName}\` of \`${appName}\`...`});
-  //   const { stdout } = await (slotName !== PRODUCTION_SLOT
-  //     ? execDeploySlot(appName, slotName, {
-  //       cwd: f.description + f.label
-  //     }, channel)
-  //     : execDeploy(appName, {
-  //       cwd: f.description + f.label
-  //     }, channel));
-
-  //   return Promise.resolve(stdout);
-  // });
+    return Promise.resolve(stdout);
+  });
 }
