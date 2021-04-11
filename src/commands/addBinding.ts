@@ -78,46 +78,35 @@ export async function addBinding() {
   const selectedBinding = await selectBinding();
   if (!selectedBinding) return;
 
-  await window.withProgress({
-    location: ProgressLocation.Notification,
-    title: 'DenoFunc',
-    cancellable: false
-  }, async (progress) => {
-    progress.report({ message: ` Adding binding...` });
-    const uri = Uri.file(`${f.description}${f.label}/functions/${functionItem.label}`);
-    await commands.executeCommand('vscode.open', uri);
+  const uri = Uri.file(`${f.description}${f.label}/functions/${functionItem.label}`);
+  await commands.executeCommand('vscode.open', uri);
 
-    const activeEditor = window.activeTextEditor;
-    if (!activeEditor) return;
+  const activeEditor = window.activeTextEditor;
+  if (!activeEditor) return;
 
-    const contents = activeEditor.document.getText();
+  try {
+    const contents = activeEditor.document.getText()
+      .replace(/\/\*[\s\S]*?\*\//g, c => c.replace(/[^\/\* \n]/g, "*")) // replace characters inside block-comment into `*`
+      .replace(/\/\/[^\n]*/g, c => c.replace(/[^\/\* \n]/g, "*"));        // replace characters inside line-comment into `*`
+
+    const bindingsMatch = contents.match(/export\s*default\s*\{[\s\S]*metadata\s*:\s*\{(?:[\s\S]*(["'^\s]?bindings["']?\s*:\s*\[))?/);
+
     let bindingJsonString: string;
     let match: RegExpExecArray | null;
-
-    try {
-      progress.report({ message: ` Parsing \`${functionItem.label}\`...` });
-      const metadata = await getFunctionMetadata(contents, {
-        cwd: f.description + f.label
-      });
-
-      if (!metadata) {
-        match = /export\s+default\s+\{/.exec(contents);
-        if (!match) return;
-        bindingJsonString = `\nmetadata: {\nbindings: [\n${selectedBinding}\n]\n},\n`;
-      } else if (!metadata.bindings) {
-        match = /['"]?metadata['"]?\s*:\s*\{/.exec(contents);
-        if (!match) return;
-        bindingJsonString = `\nbindings: [\n${selectedBinding}\n]\n`;
-      } else {
-        match = /['"]?bindings['"]?\s*:\s*\[/.exec(contents);
-        if (!match) return;
-        bindingJsonString = `\n${selectedBinding}${metadata.bindings.length > 0 ? ',' : ''}`;
-      }
-    } catch {
-      window.showErrorMessage(`Failed to parse \`${functionItem.label}\``);
+    if (!bindingsMatch) {
+      // Cannot find `metadata`
       match = /export\s+default\s+\{/.exec(contents);
       if (!match) return;
-      bindingJsonString = `\n// metadata: {\n// bindings: [\n${selectedBinding.split(/\n/).map(l => `// ${l}`).join('\n')}\n// ]\n// },\n`;
+      bindingJsonString = `\nmetadata: {\nbindings: [\n${selectedBinding}\n]\n},\n`;
+    } else if (!bindingsMatch[1]) {
+      // Cannot find `bindings`
+      match = /['"]?metadata['"]?\s*:\s*\{/.exec(contents);
+      if (!match) return;
+      bindingJsonString = `\nbindings: [\n${selectedBinding}\n],\n`;
+    } else {
+      match = /['"]?bindings['"]?\s*:\s*\[/.exec(contents);
+      if (!match) return;
+      bindingJsonString = `\n${selectedBinding},\n`;
     }
     const position = match.index + match[0].length;
     const lines = contents.slice(0, position).split(/\n/);
@@ -129,5 +118,8 @@ export async function addBinding() {
     const selectionEndPosition = new Position(insertPosition.line + bindingJsonStringLines.length - 1, bindingJsonStringLines[bindingJsonStringLines.length - 1].length + 1);
     activeEditor.selection = new Selection(insertPosition, selectionEndPosition);
     await commands.executeCommand('editor.action.formatSelection');
-  });
+    activeEditor.selection = new Selection(selectionEndPosition, selectionEndPosition);
+  } catch {
+    window.showErrorMessage('Failed to add binding');
+  }
 }
