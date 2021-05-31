@@ -1,12 +1,17 @@
 'use strict';
 
-import { window, ProgressLocation, workspace } from 'vscode';
+import { window, ProgressLocation, workspace, env, Uri } from 'vscode';
+import * as semver from 'semver';
+
 import { channel } from '../utils/outputChannel';
 import { pickTargetFolder } from '../utils/picker';
 import { execDeploy, execDeploySlot } from '../utils/denofuncWrapper';
 import { execAzFuncAppList, execAzFuncAppSlotList } from '../utils/azWrapper';
+import { getDenoFuncVersion } from '../utils/denofuncVersion';
 
 const PRODUCTION_SLOT = 'Production';
+const VERSION_SLOT_SUPPORT = '0.7.0';
+const LABEL_OPEN_HOW_TO_INSTALL_DENOFUNC = 'Install the latest denofunc CLI';
 
 const selectFunctionApp = async () => {
   try {
@@ -77,6 +82,14 @@ export async function deploy() {
 }
 
 export async function deploySlot() {
+  const VERSION_DENOFUNC = await getDenoFuncVersion(workspace.getConfiguration('denofunc')?.path || 'denofunc');
+  if (!semver.satisfies(VERSION_DENOFUNC, `>=${VERSION_SLOT_SUPPORT}`)) {
+    const message = `DenoFunc: Slot deployment is supported by only v${VERSION_SLOT_SUPPORT} or later of denofunc. Your denofunc is ${VERSION_DENOFUNC}.`;
+    window.showErrorMessage(message, LABEL_OPEN_HOW_TO_INSTALL_DENOFUNC)?.then((value) => {
+      if (value === LABEL_OPEN_HOW_TO_INSTALL_DENOFUNC) env.openExternal(Uri.parse('https://github.com/anthonychu/azure-functions-deno-worker#install-the-denofunc-cli'));
+    });
+    return;
+  }
   if (!workspace.workspaceFolders) {
     const message = 'DenoFunc: Working folder not found, open a folder and try again';
     window.showErrorMessage(message);
