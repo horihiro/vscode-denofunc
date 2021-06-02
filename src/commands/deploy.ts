@@ -82,9 +82,9 @@ export async function deploy() {
 }
 
 export async function deploySlot() {
-  const VERSION_DENOFUNC = await getDenoFuncVersion(workspace.getConfiguration('denofunc')?.path || 'denofunc');
-  if (!semver.satisfies(VERSION_DENOFUNC, `>=${VERSION_SLOT_SUPPORT}`)) {
-    const message = `DenoFunc: Slot deployment is supported by only v${VERSION_SLOT_SUPPORT} or later of denofunc. Your denofunc is ${VERSION_DENOFUNC}.`;
+  const versionDenoFunc = await getDenoFuncVersion(workspace.getConfiguration('denofunc')?.path || 'denofunc');
+  if (!semver.satisfies(versionDenoFunc, `>=${VERSION_SLOT_SUPPORT}`)) {
+    const message = `DenoFunc: Slot deployment is supported by only v${VERSION_SLOT_SUPPORT} or later of denofunc. Your denofunc is ${versionDenoFunc}.`;
     window.showErrorMessage(message, LABEL_OPEN_HOW_TO_INSTALL_DENOFUNC)?.then((value) => {
       if (value === LABEL_OPEN_HOW_TO_INSTALL_DENOFUNC) env.openExternal(Uri.parse('https://github.com/anthonychu/azure-functions-deno-worker#install-the-denofunc-cli'));
     });
