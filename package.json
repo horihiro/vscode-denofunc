@@ -2,7 +2,7 @@
 	"name": "vscode-denofunc",
 	"displayName": "denofunc extension",
 	"description": "VSCode extension as denofunc wrapper",
-	"version": "0.0.2",
+	"version": "0.1.0",
 	"publisher": "horihiro",
 	"repository": {
 		"type": "git",
@@ -91,7 +91,7 @@
 		"glob": "^7.1.6",
 		"mocha": "^8.2.1",
 		"typescript": "^4.1.3",
-		"vsce": "^1.87.0",
+		"vsce": "^1.93.0",
 		"vscode-test": "^1.5.0"
 	},
 	"extensionDependencies": [
