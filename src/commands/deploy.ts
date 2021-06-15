@@ -20,7 +20,7 @@ const selectFunctionApp = async () => {
       title: 'DenoFunc',
       cancellable: false
     }, async (progress) => {
-      progress.report({ message: ` Getting Function Apps...`});
+      progress.report({ message: ` Getting Function Apps...` });
       channel.show();
       channel.appendLine('Getting Function Apps...');
       return await execAzFuncAppList(undefined, channel)
@@ -39,7 +39,7 @@ const selectFunctionAppSlot = async (appName: string) => {
       title: `DenoFunc`,
       cancellable: false
     }, async (progress) => {
-      progress.report({ message: ` Getting slots of Function App \`${appName}\`...`});
+      progress.report({ message: ` Getting slots of Function App \`${appName}\`...` });
       channel.show();
       channel.appendLine(`Getting slots of Function App \`${appName}\`...`);
       return await execAzFuncAppSlotList(appName, undefined, channel)
@@ -70,7 +70,7 @@ export async function deploy() {
     title: `DenoFunc`,
     cancellable: false
   }, async (progress) => {
-    progress.report({ message: ` Deploying to \`${appName}\`...`});
+    progress.report({ message: ` Deploying to \`${appName}\`...` });
     channel.show();
     channel.appendLine(`Deploying to \`${appName}\`...`);
     return await execDeploy(appName, {
@@ -109,7 +109,7 @@ export async function deploySlot() {
     title: `DenoFunc`,
     cancellable: false
   }, async (progress) => {
-    progress.report({ message: ` Deploying to slot \`${slotName}\` of \`${appName}\`...`});
+    progress.report({ message: ` Deploying to slot \`${slotName}\` of \`${appName}\`...` });
     const { stdout } = await (slotName !== PRODUCTION_SLOT
       ? execDeploySlot(appName, slotName, {
         cwd: f.description + f.label
@@ -118,6 +118,6 @@ export async function deploySlot() {
         cwd: f.description + f.label
       }, channel));
 
-    return Promise.resolve(stdout);
+    window.showInformationMessage('Deployment is succeeded.');
   });
 }
